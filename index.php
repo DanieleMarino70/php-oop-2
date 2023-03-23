@@ -80,7 +80,7 @@ $dog_type = new Category("Cane", '<i class="fa-solid fa-dog"></i>');
 $cat_type = new Category("Gatto", '<i class="fa-solid fa-cat"></i>');
 
 $products = [
-    new Food("link-img", "Patè", 0.99, $cat_type, "10-31-2024")
+    new Food("https://m.media-amazon.com/images/W/IMAGERENDERING_521856-T1/images/I/A1gZwh8Fy2L._AC_SL1500_.jpg", "Patè", 0.99, $cat_type, "10-31-2024")
 ];
 
 
@@ -118,9 +118,21 @@ foreach ($products as $product) {
 <body>
     <div class="container">
         <div class="row">
-            <div class="col">
+            <?php foreach ($products as $product) : ?>
+                <div class="col">
+                    <div class="card" style="width: 18rem;">
+                        <img src=<?= $product->image ?> class="card-img-top" alt="...">
+                        <div class="card-body">
+                            <h2 class="card-text text-center"><span><?= $product->category->icon ?></span><?= $product->title ?></h2>
+                            <div class="text-center">Costo: <?= $product->price ?></div>
+                            <?php if (get_class($product) === "Food") : ?>
+                                <div class="text-center">Scadenza: <?= $product->expiration  ?></div>
+                            <?php endif; ?>
+                        </div>
+                    </div>
+                </div>
 
-            </div>
+            <?php endforeach; ?>
         </div>
     </div>
 </body>
